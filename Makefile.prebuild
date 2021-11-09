@@ -67,11 +67,13 @@ endif
 
 
 getarch : getarch.c cpuid.S dummy $(CPUIDEMU)
-	$(HOSTCC) $(HOST_CFLAGS) $(EXFLAGS) -o $(@F) getarch.c cpuid.S $(CPUIDEMU)
+	@echo $(HOSTCC) $(HOST_CFLAGS) $(EXFLAGS) -o $(@F) getarch.c cpuid.S $(CPUIDEMU)
+	gcc $(HOST_CFLAGS) $(EXFLAGS) -o $(@F) getarch.c cpuid.S $(CPUIDEMU)
 
 getarch_2nd : getarch_2nd.c config.h dummy
 ifndef TARGET_CORE
-	$(HOSTCC) -I. $(HOST_CFLAGS) -o $(@F) getarch_2nd.c
+	@echo $(HOSTCC) -I. $(HOST_CFLAGS) -o $(@F) getarch_2nd.c
+	gcc -I. $(HOST_CFLAGS) -o $(@F) getarch_2nd.c
 else
 	$(HOSTCC) -I. $(HOST_CFLAGS) -DBUILD_KERNEL -o $(@F) getarch_2nd.c
 endif
